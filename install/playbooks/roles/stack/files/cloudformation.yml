@@ -1,0 +1,96 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  VpcName:
+    Type: String
+  VpcCidrBlock:
+    Type: String
+  SubnetCidrBlock:
+    Type: String
+  SubnetZone:
+    Type: String
+  KeyPairName:
+    Type: "AWS::EC2::KeyPair::KeyName"
+  InstanceType:
+    Type: String
+  AmiId:
+    Type: String
+  InstanceName:
+    Type: String
+  HostedZone:
+    Type: String
+Resources:
+  Vpc:
+    Type: 'AWS::EC2::VPC'
+    Properties:
+      CidrBlock: !Ref VpcCidrBlock
+      EnableDnsSupport: true
+      EnableDnsHostnames: true
+      Tags:
+        - Key: Name
+          Value: !Ref VpcName
+  InternetGw:
+    Type: 'AWS::EC2::InternetGateway'
+    Properties: {}
+  GwAttachment:
+    Type: 'AWS::EC2::VPCGatewayAttachment'
+    Properties:
+      InternetGatewayId: !Ref InternetGw
+      VpcId: !Ref Vpc
+  RouteTable:
+    Type: 'AWS::EC2::RouteTable'
+    Properties:
+      VpcId: !Ref Vpc
+  GwRoute:
+    Type: 'AWS::EC2::Route'
+    Properties:
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref InternetGw
+      RouteTableId: !Ref RouteTable
+  Subnet:
+    Type: 'AWS::EC2::Subnet'
+    Properties:
+      VpcId: !Ref Vpc
+      CidrBlock: !Ref SubnetCidrBlock
+      AvailabilityZone: !Ref SubnetZone
+      MapPublicIpOnLaunch: true 
+  SubnetAssoc:
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties:
+      RouteTableId: !Ref RouteTable
+      SubnetId: !Ref Subnet
+  SecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      VpcId: !Ref Vpc
+      GroupDescription: !Ref InstanceName
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: "tcp"
+          FromPort: 22
+          ToPort: 22
+  Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: !Ref AmiId
+      InstanceType: !Ref InstanceType
+      KeyName: !Ref KeyPairName
+      NetworkInterfaces:
+        - DeviceIndex: 0
+          SubnetId: !Ref Subnet
+          GroupSet:
+            - !Ref SecurityGroup
+      Tags:
+        - Key: Name
+          Value: !Ref InstanceName
+  InstanceDns:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneName: !Ref HostedZone
+      Name: !Join ['', [!Ref 'InstanceName', ., !Ref 'HostedZone']]
+      Type: A
+      TTL: 300
+      ResourceRecords:
+      - !GetAtt Instance.PublicIp
+Outputs:
+  PublicIp:
+    Value: !GetAtt Instance.PublicIp

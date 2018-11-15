@@ -1,0 +1,17 @@
+target_working_dir: ../output
+
+name_prefix: wof
+stack_name: "{{ name_prefix }}-server"
+vpc_name: "{{ name_prefix }}"
+instance_name: "{{ name_prefix }}"
+
+key_pair_name: wof-key
+instance_type: t3.medium
+ami_id: ami-0f2cb2729acf8f494
+
+aws_region: ca-central-1
+subnet_zone: ca-central-1a
+vpc_cidr_block: 10.0.0.0/16
+subnet_cidr_block: 10.0.0.0/24
+
+hosted_zone: blindstare.com.

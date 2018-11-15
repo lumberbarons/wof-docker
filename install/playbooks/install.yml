@@ -1,0 +1,18 @@
+- name: create instance
+  hosts: localhost
+  roles:
+    - stack
+
+- name: install python on instance
+  hosts: instance
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: install python
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
+- name: install docker
+  hosts: instance
+  become: yes
+  roles:
+    - docker
