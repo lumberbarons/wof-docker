@@ -1,0 +1,51 @@
+version: '3'
+services:
+  wof-indexer:
+    image: lumberbarons/wof-indexer:latest
+    container_name: wof-indexer
+    volumes:
+      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
+    environment:
+      ELASTICSEARCH_HOST: wof-elasticsearch
+    networks:
+      - wof-network
+  wof-spelunker:
+    image: lumberbarons/wof-spelunker:latest
+    container_name: wof-spelunker
+    environment:
+      NEXTZEN_KEY:
+    volumes:
+      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
+    networks:
+      - wof-network
+  wof-nginx:
+    image: lumberbarons/wof-nginx:latest
+    container_name: wof-nginx
+    volumes:
+      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
+    ports:
+      - 80:80
+    networks:
+      - wof-network
+  wof-elasticsearch:
+    image: elasticsearch:2.4.6
+    container_name: wof-elasticsearch
+    environment:
+      - cluster.name=whosonfirst
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - wof-network
+
+volumes:
+  esdata:
+networks:
+  wof-network:
