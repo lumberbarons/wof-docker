@@ -8,15 +8,19 @@ if [ ! -d ${REPO_DIR} ]; then
     git clone https://github.com/lumberbarons/whosonfirst-www-spelunker.git
 fi
 
-echo "Configuring spelunker and gunicorn"
-${REPO_DIR}/ubuntu/setup-spelunker.sh
+echo "Configuring gunicorn"
 ${REPO_DIR}/ubuntu/setup-gunicorn.sh wof-elasticsearch
 
+echo "Configuring spelunker"
+${REPO_DIR}/ubuntu/setup-spelunker.sh
 if [ ! -z ${NEXTZEN_KEY} ]; then
-    echo "Setting nextzen api key in config"
-    cd /usr/local/mapzen/whosonfirst-www-spelunker/www/static/javascript
+    cd ${REPO_DIR}/www/static/javascript
+    echo "Using nextzen api key: ${NEXTZEN_KEY}"
     sed -i "s/nextzen-xxxxxx/${NEXTZEN_KEY}/g" mapzen.whosonfirst.config.js
 fi
+
+# set data path in flask cfg
+sed -i "s/https:\/\/data.whosonfirst.org/\/data/g" ${REPO_DIR}/config/whosonfirst-www-spelunker-flask.cfg
 
 echo "Starting spelunker"
 

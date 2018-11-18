@@ -10,7 +10,8 @@ server {
 	}
 
 	location /data {
-		root /usr/local/data/whosonfirst-data/data;
+		root /usr/local/data/whosonfirst-data;
+		add_header Content-Type application/json; 
 	}
 
 	location /spelunker {

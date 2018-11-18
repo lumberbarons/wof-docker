@@ -13,7 +13,7 @@ services:
     image: lumberbarons/wof-spelunker:latest
     container_name: wof-spelunker
     environment:
-      NEXTZEN_KEY:
+      - NEXTZEN_KEY=${NEXTZEN_KEY}
     volumes:
       - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
     networks:
