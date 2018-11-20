@@ -2,3 +2,5 @@ _venv_deploy
 install/output/*
 *.pem
 *.retry
+
+docker/data/*

@@ -4,7 +4,7 @@ services:
     image: lumberbarons/wof-indexer:latest
     container_name: wof-indexer
     volumes:
-      - wofdata:/usr/local/data
+      - ./data/wof:/usr/local/data
     environment:
       - ELASTICSEARCH_HOST=wof-elasticsearch
       - WOFDATA_GITHUB_URL=${WOFDATA_GITHUB_URL}
@@ -16,7 +16,7 @@ services:
     image: lumberbarons/wof-data:latest
     container_name: wof-data
     volumes:
-      - wofdata:/usr/local/data
+      - ./data/wof:/usr/local/data
     networks:
       - wof-network
   wof-spelunker:
@@ -48,14 +48,11 @@ services:
         soft: -1
         hard: -1
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      - ./data/es:/usr/share/elasticsearch/data
     ports:
       - 9200:9200
     networks:
       - wof-network
 
-volumes:
-  wofdata:
-  esdata:
 networks:
   wof-network:
