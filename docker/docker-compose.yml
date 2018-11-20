@@ -4,9 +4,19 @@ services:
     image: lumberbarons/wof-indexer:latest
     container_name: wof-indexer
     volumes:
-      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
+      - wofdata:/usr/local/data
     environment:
-      ELASTICSEARCH_HOST: wof-elasticsearch
+      - ELASTICSEARCH_HOST=wof-elasticsearch
+      - WOFDATA_GITHUB_URL=${WOFDATA_GITHUB_URL}
+    networks:
+      - wof-network
+    depends_on:
+      - wof-elasticsearch
+  wof-data:
+    image: lumberbarons/wof-data:latest
+    container_name: wof-data
+    volumes:
+      - wofdata:/usr/local/data
     networks:
       - wof-network
   wof-spelunker:
@@ -14,19 +24,18 @@ services:
     container_name: wof-spelunker
     environment:
       - NEXTZEN_KEY=${NEXTZEN_KEY}
-    volumes:
-      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
     networks:
       - wof-network
-  wof-nginx:
-    image: lumberbarons/wof-nginx:latest
-    container_name: wof-nginx
-    volumes:
-      - ~/whosonfirst-data-constituency-ca:/usr/local/data/whosonfirst-data
+  wof-proxy:
+    image: lumberbarons/wof-proxy:latest
+    container_name: wof-proxy
     ports:
       - 80:80
     networks:
       - wof-network
+    depends_on:
+      - wof-spelunker
+      - wof-data
   wof-elasticsearch:
     image: elasticsearch:2.4.6
     container_name: wof-elasticsearch
@@ -46,6 +55,7 @@ services:
       - wof-network
 
 volumes:
+  wofdata:
   esdata:
 networks:
   wof-network:
