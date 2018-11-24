@@ -7,18 +7,10 @@ services:
       - ./data/wof:/usr/local/data
     environment:
       - ELASTICSEARCH_HOST=wof-elasticsearch
-      - WOFDATA_GITHUB_URL=${WOFDATA_GITHUB_URL}
     networks:
       - wof-network
     depends_on:
       - wof-elasticsearch
-  wof-data:
-    image: lumberbarons/wof-data:latest
-    container_name: wof-data
-    volumes:
-      - ./data/wof:/usr/local/data
-    networks:
-      - wof-network
   wof-spelunker:
     image: lumberbarons/wof-spelunker:latest
     container_name: wof-spelunker
@@ -29,13 +21,14 @@ services:
   wof-proxy:
     image: lumberbarons/wof-proxy:latest
     container_name: wof-proxy
+    volumes:
+      - ./data/wof:/usr/local/data
     ports:
       - 80:80
     networks:
       - wof-network
     depends_on:
       - wof-spelunker
-      - wof-data
   wof-elasticsearch:
     image: elasticsearch:2.4.6
     container_name: wof-elasticsearch

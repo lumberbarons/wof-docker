@@ -10,7 +10,7 @@ RUN python -m pip install --upgrade --force pip && \
 pip install --no-cache-dir --upgrade setuptools && \
 pip install --no-cache-dir --upgrade pyopenssl ndg-httpsclient pyasn1 'requests[security]'
 
-# install wof python tools
+# install wof tools
 WORKDIR /usr/local/mapzen
 RUN git clone https://github.com/whosonfirst/py-mapzen-whosonfirst.git && \
 cd py-mapzen-whosonfirst && pip install --no-cache-dir --upgrade -r requirements.txt --process-dependency-links . && \
