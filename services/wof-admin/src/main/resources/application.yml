@@ -1,0 +1,12 @@
+server:
+  port: 80
+  compression:
+    enabled: true
+    mime-types: application/json
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate
+jwt:
+  header: Authorization
+  expiration: 604800

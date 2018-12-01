@@ -1,0 +1,27 @@
+html {
+    font-family: 'Roboto', sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+md-toolbar {
+    font-family: 'Rubik', sans-serif;
+}
+
+md-toolbar h1 {
+    font-size: 32px !important;
+}
+
+md-toolbar .md-button {
+    font-size: 22px !important;
+}
+
+md-content {
+    /* height: 100%; */
+}
+
+.login-form md-card {
+    padding: 0!important;
+}

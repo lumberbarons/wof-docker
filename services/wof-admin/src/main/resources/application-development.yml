@@ -1,0 +1,12 @@
+server:
+  port: 8000
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/wof_admin?useSSL=false
+    username: root
+    password: secret
+jwt:
+  secret: secret

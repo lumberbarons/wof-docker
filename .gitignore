@@ -3,4 +3,9 @@ install/output/*
 *.pem
 *.retry
 
-docker/data/*
+services/*/repos/*
+services/data/*
+
+target
+bower_components
+node_modules

@@ -1,0 +1,9 @@
+{
+  "name": "wof-admin",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-cli": "^1.3.2",
+    "grunt-cache-bust": "^1.7.0"
+  }
+}

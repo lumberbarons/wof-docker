@@ -1,0 +1,66 @@
+version: '3'
+services:
+  wof-indexer:
+    image: lumberbarons/wof-indexer:latest
+    container_name: wof-indexer
+    volumes:
+      - ./data/wof:/usr/local/data
+    environment:
+      - ELASTICSEARCH_HOST=wof-elasticsearch
+    networks:
+      - wof-network
+    depends_on:
+      - wof-elasticsearch
+  wof-spelunker:
+    image: lumberbarons/wof-spelunker:latest
+    container_name: wof-spelunker
+    environment:
+      - NEXTZEN_KEY=${NEXTZEN_KEY}
+      - ELASTICSEARCH_HOST=wof-elasticsearch
+    networks:
+      - wof-network
+  wof-proxy:
+    image: lumberbarons/wof-proxy:latest
+    container_name: wof-proxy
+    volumes:
+      - ./data/wof:/usr/local/data
+      - ./wof-proxy/assets/website:/usr/local/mapzen/www
+    ports:
+      - 80:80
+    networks:
+      - wof-network
+    depends_on:
+      - wof-spelunker
+  wof-elasticsearch:
+    image: elasticsearch:2.4.6
+    container_name: wof-elasticsearch
+    environment:
+      - cluster.name=whosonfirst
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/es:/usr/share/elasticsearch/data
+    ports:
+      - 9200:9200
+    networks:
+      - wof-network
+  wof-mysql:
+    image: mysql
+    container_name: wof-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: wof_admin
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - wof-network
+
+networks:
+  wof-network:
