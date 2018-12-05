@@ -4,8 +4,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
   datasource:
-    url: jdbc:mysql://localhost:3306/wof_admin?useSSL=false
+    url: jdbc:mysql://localhost:3306/wof_admin?useSSL=false&allowPublicKeyRetrieval=true
     username: root
     password: secret
 jwt:

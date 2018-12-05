@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .directive('hasAuthority', hasAuthority);
 
     hasAuthority.$inject = ['Principal'];

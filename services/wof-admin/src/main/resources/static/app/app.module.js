@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('MsgboardApp', [
+    .module('WofAdminApp', [
         'ngResource',
         'ngMaterial',
         'ui.router',

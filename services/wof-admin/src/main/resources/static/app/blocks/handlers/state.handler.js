@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .factory('stateHandler', stateHandler);
 
     stateHandler.$inject = ['$rootScope', '$state', 'Auth', 'Principal'];

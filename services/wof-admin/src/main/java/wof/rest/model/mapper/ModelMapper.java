@@ -1,8 +1,6 @@
 package wof.rest.model.mapper;
 
 import wof.repository.model.AuthorityEntity;
-import wof.repository.model.PostEntity;
-import wof.repository.model.ThreadEntity;
 import wof.repository.model.UserEntity;
 import wof.rest.model.AccountDTO;
 import wof.rest.model.UserDTO;

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .factory('Auth', Auth);
 
     Auth.$inject = ['$rootScope', '$state', '$http', 'localStorageService', '$q', 'Principal'];

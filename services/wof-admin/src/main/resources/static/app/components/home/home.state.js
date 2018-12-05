@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .config(stateConfig);
 
     stateConfig.$inject = ['$stateProvider'];

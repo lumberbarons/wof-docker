@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .factory('Principal', Principal);
 
     Principal.$inject = ['$q', 'Account'];

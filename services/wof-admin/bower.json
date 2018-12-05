@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "name": "blindstare",
+  "version": "0.1.0",
+  "name": "wof-admin",
   "appPath": "src/main/resources/static/",
   "dependencies": {
     "angular-ui-router": "^0.4.2",

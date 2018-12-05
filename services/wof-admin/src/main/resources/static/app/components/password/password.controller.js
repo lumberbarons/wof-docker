@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .controller('PasswordController', PasswordController);
 
     PasswordController.$inject = ['$scope', '$state', 'Auth'];

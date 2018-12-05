@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .factory('authInterceptor', authInterceptor);
 
     authInterceptor.$inject = ['$q', '$injector'];

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .config(stateConfig)
         .config(materialConfig);
 
@@ -34,8 +34,8 @@
           .primaryPalette('blue-grey');
     }
 
-    angular.module('MsgboardApp').config(function (localStorageServiceProvider) {
+    angular.module('WofAdminApp').config(function (localStorageServiceProvider) {
       localStorageServiceProvider
-        .setPrefix('MsgboardApp');
+        .setPrefix('WofAdminApp');
     });
 })();

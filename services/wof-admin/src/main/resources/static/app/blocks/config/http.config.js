@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .config(httpConfig);
 
     httpConfig.$inject = ['$httpProvider'];

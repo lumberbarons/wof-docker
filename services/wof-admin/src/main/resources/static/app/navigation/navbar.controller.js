@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('MsgboardApp')
+        .module('WofAdminApp')
         .controller('NavbarController', NavbarController);
 
     NavbarController.$inject = ['localStorageService', '$state', '$rootScope'];
