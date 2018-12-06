@@ -2,7 +2,7 @@ FROM ubuntu:16.04
 
 # install base packages
 RUN apt-get update && \
-apt-get install -y git python-pip python-pyparsing python-setuptools libpython-dev libssl-dev libffi-dev && \ 
+apt-get install --no-install-recommends -y git python-pip python-pyparsing python-setuptools libpython-dev libssl-dev libffi-dev && \ 
 rm -rf /var/lib/apt/lists/*
 
 # install python packages
