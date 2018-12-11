@@ -1,7 +1,7 @@
 {
   "version": "0.1.0",
   "name": "wof-admin",
-  "appPath": "src/main/resources/static/",
+  "appPath": "src/",
   "dependencies": {
     "angular-ui-router": "^0.4.2",
     "angular-material": "~1.1.3",

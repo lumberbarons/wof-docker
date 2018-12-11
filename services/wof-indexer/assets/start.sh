@@ -11,6 +11,11 @@ curl -s -X POST ${ELASTICSEARCH_URL}/_aliases -d '{ "actions": [ { "add": { "ali
 echo "\n\nWaiting for files to index"
 
 cd /usr/local/indexer
+
+if [ ! -d /usr/local/data/bundles ]; then
+    mkdir -p /usr/local/data/bundles
+fi
+
 inotifywait -q -m /usr/local/data/bundles -e modify |
     while read path action file; do
         echo "The file '$file' appeared in directory '$path' via '$action'"
