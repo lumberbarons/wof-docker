@@ -1,10 +1,10 @@
 package wof.repository;
 
-import wof.repository.model.AuthorityEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import wof.repository.model.BundleEntity;
 
 @Repository
-public interface AuthorityRepository extends JpaRepository<AuthorityEntity, String> {
+public interface BundleRepository extends JpaRepository<BundleEntity, String> {
 
 }

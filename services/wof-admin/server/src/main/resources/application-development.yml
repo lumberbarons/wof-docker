@@ -1,5 +1,8 @@
 server:
   port: 8000
+  compression:
+    enabled: true
+    mime-types: application/json
 spring:
   jpa:
     hibernate:
@@ -14,3 +17,12 @@ spring:
     password: secret
 jwt:
   secret: secret
+  header: Authorization
+  expiration: 604800
+wof:
+  elasticsearch:
+    host: 127.0.0.1
+    port: 9200
+    spelunker:
+      index: spelunker_20181215
+      alias: spelunker

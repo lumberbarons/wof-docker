@@ -1,8 +1,10 @@
 package wof.rest.model.mapper;
 
 import wof.repository.model.AuthorityEntity;
+import wof.repository.model.BundleEntity;
 import wof.repository.model.UserEntity;
 import wof.rest.model.AccountDTO;
+import wof.rest.model.BundleDTO;
 import wof.rest.model.UserDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,4 +28,8 @@ public interface ModelMapper {
 
     UserDTO map(UserEntity source);
     UserEntity map(UserDTO source);
+
+    BundleDTO map(BundleEntity source);
+    BundleEntity map(BundleDTO source);
+
 }

@@ -26,9 +26,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
-
-    private String[] staticContent = { "/", "/*.ico", "/*.png", "/*.html", "/content/**", "/bower_components/**", "/app/**" };
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
@@ -66,7 +64,6 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers(staticContent).permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/token").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/auth/account/reset").permitAll()
                 .anyRequest().authenticated();
@@ -78,14 +75,14 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
         httpSecurity
                 .headers()
-                .frameOptions().sameOrigin()
+                .frameOptions()
+                .sameOrigin()
                 .cacheControl();
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(staticContent)
-                .and().ignoring().antMatchers(HttpMethod.POST,"/api/auth/token")
+        web.ignoring().antMatchers(HttpMethod.POST,"/api/auth/token")
                 .and().ignoring().antMatchers(HttpMethod.POST,"/api/auth/account/reset");
     }
 }

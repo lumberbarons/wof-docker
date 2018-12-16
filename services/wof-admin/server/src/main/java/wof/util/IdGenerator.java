@@ -1,4 +1,4 @@
-package wof.component;
+package wof.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

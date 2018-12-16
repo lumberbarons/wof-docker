@@ -6,7 +6,7 @@ cd /usr/local/indexer/es-schema
 echo "Adding index to elasticsearch $ELASTICSEARCH_URL"
 cat mappings.spelunker.json | curl -s -H "Content-Type: application/json" -X PUT ${ELASTICSEARCH_URL}/spelunker_20181120 -d @-
 echo "\nAdding alias to elasticsearch"
-curl -s -X POST ${ELASTICSEARCH_URL}/_aliases -d '{ "actions": [ { "add": { "alias": "spelunker", "index": "spelunker_20181120" } } ] }'
+curl -s -H "Content-Type: application/json" -X POST ${ELASTICSEARCH_URL}/_aliases -d '{ "actions": [ { "add": { "alias": "spelunker", "index": "spelunker_20181120" } } ] }'
 
 echo "\n\nWaiting for files to index"
 

@@ -3,7 +3,6 @@ package wof.repository.model;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
@@ -17,12 +16,9 @@ public class UserEntity {
     @Id
     private String id;
 
-    @NotNull
     @Column(unique = true)
     private String email;
 
-    @NotNull
-    @Column(unique = true)
     private String name;
 
     private String password;

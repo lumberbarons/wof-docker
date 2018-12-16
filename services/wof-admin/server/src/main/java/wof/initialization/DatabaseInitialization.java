@@ -1,16 +1,16 @@
-package wof.component;
+package wof.initialization;
 
 import lombok.extern.slf4j.Slf4j;
 import wof.repository.AuthorityRepository;
 import wof.repository.UserRepository;
 import wof.repository.model.AuthorityEntity;
 import wof.repository.model.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import wof.util.IdGenerator;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,14 +20,17 @@ import java.util.HashSet;
 @Profile("development")
 public class DatabaseInitialization {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final AuthorityRepository authorityRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private AuthorityRepository authorityRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public DatabaseInitialization(UserRepository userRepository,
+                                  AuthorityRepository authorityRepository,
+                                  PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.authorityRepository = authorityRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
